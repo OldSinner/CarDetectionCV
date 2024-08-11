@@ -2,7 +2,7 @@ import cv2
 class StableCameraCarDetector:
     def __init__(self, videopath) -> None:
         self.path = videopath
-        self.masker = cv2.createBackgroundSubtractorMOG2()
+        self.masker = cv2.createBackgroundSubtractorMOG2(history = 100, varThreshold = 150)
 
     def run(self) -> None:
         # Get Frames of Video
@@ -11,7 +11,7 @@ class StableCameraCarDetector:
             ret, frame = cap.read()
 
             # extract POI
-            roi = frame[340:650, 500:700]
+            roi = frame[340:600, 500:700]
 
             # Processing Mask
             mask = self.masker.apply(roi)
@@ -21,13 +21,14 @@ class StableCameraCarDetector:
             for ct in cts:
                 # area 
                 area = cv2.contourArea(ct)
-                if area > 100:
-                    cv2.drawContours(roi,[ct],-1,(255,0,0),2)
+                if area > 200:
+                    x,y,w,h = cv2.boundingRect(ct)
+                    cv2.rectangle(roi,(x,y), (x+w, y+h), (0,255,0),2)
 
             # Display
             cv2.imshow("Frame",frame)
             # cv2.imshow("Mask", mask)
-            cv2.imshow("POI", roi)
+            # cv2.imshow("POI", roi)
 
 
             # Close Display
