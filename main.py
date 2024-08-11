@@ -1,4 +1,4 @@
-from cardetection import CarDetector
+from cardetection import StableCameraCarDetector
 
-carDet = CarDetector("./video.mp4")
+carDet = StableCameraCarDetector("./video.mp4")
 carDet.run()
