@@ -31,7 +31,6 @@ class StableCameraCarDetector:
             cv2.imshow("Mask", mask)
             # cv2.imshow("POI", roi)
 
-
             # Close Display
             key = cv2.waitKey(30)
             if key == 27:
