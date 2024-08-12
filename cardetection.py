@@ -1,4 +1,5 @@
 import cv2
+from tracker import *
 class StableCameraCarDetector:
     def __init__(self, videopath) -> None:
         self.path = videopath
